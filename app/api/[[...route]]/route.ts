@@ -11,13 +11,13 @@ export const runtime = "edge";
 
 const app = new Hono().basePath("/api");
 
-app.use('*', cors({
+app.use(cors({
   origin: 'https://personal-finance-hs8u.onrender.com', // Allow requests from this origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-  headers: ['Content-Type', 'Authorization', 'X-Requested-With'], // Allow specific headers
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE'], // Use `allowMethods` instead of `methods`
+  allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Allow specific headers
 }));
 
-app.get('/', (c) => c.json({ message: 'Hello from Hono!' }));
+app.get('/', (e: { json: (arg0: { message: string; }) => any; }) => e.json({ message: 'Hello from Hono!' }));
 
 const routes = app
   .route("/accounts", accounts)
